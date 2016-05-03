@@ -2,21 +2,12 @@
 
 set -o errexit
 
-# if [ $# = 0 ]
-# then
-#   echo "ERROR - Syntax: $0 filename"
-#   echo "    Lines in file must look like         username:pwd"
-#   echo "    Using database table USR attributes  USR_LOGIN:USR_PASSWORD"
-#   echo
-#   exit 80
-# fi
-
 . ./setenv.sh
 
-cf="at/agoracon/oim/Crypto"
 cj="at.agoracon.oim.Crypto"
 
-# compile
+
+cf=${cj//\./\/}
 if [ ! -f "classes/${cf}.class" ] || \
    [ "classes/${cf}.class" -ot "src/${cf}.java" ]
 then
@@ -26,13 +17,12 @@ then
   echo "Compilation finished" >&2
 fi
 
-# run
-echo "Starting program. Please be patient, Java is slow..." >&2
+echo "Slowly starting stack. Be patient..." >&2
+
 java -DDOMAIN_HOME=${DOMAIN_HOME} \
   -DOIM_HOME=${ORACLE_HOME}/server \
   -Doracle.security.jps.config=${DOMAIN_HOME}/config/fmwconfig/jps-config-jse.xml \
-  -DXL.HomeDir=/${DOMAIN_HOME}/config/fmwconfig \
-  -DJAVA_HOME=${JAVA_HOME} \
+  -DXL.HomeDir=${DOMAIN_HOME}/config/fmwconfig \
   -DkeyStoreFileName=.xldatabasekey \
   ${cj} $*
 
