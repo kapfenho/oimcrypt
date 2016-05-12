@@ -61,3 +61,9 @@ Then run the decryption:
     $ ./oimcrypt -d -m <users.lst >users.plain
 
 
+OIM Bulk Migration
+==================
+
+There are two possible motivations for working with OIM password decryption: to
+hack a system or to migrate a system.  Migrations will use the OIM bulk load
+programs, therefore this 
